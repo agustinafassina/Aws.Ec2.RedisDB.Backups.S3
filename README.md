@@ -1,0 +1,2 @@
+# Aws.Ec2.RedisDB.Backups.S3
+This repository contains several scripts to install RedisDB on EC2 instances, generate backups, and restore them, storing the backups securely in an S3 bucket. The scripts enable automated backup and restore processes, ensuring data security and facilitating recovery when needed. The process covers the entire lifecycle—from installing RedisDB on EC2, creating backups, to restoring them as required.
