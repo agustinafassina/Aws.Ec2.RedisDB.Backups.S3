@@ -28,8 +28,8 @@ Scripts to install Redis on EC2, generate RDB backups and upload them to S3, and
 Configure AWS CLI and the script on the instance (see [2.GenerateBackup/README.md](2.GenerateBackup/README.md)), then schedule the script with **absolute paths**:
 | Environment | Frequency | Example crontab |
 |-------------|-----------|-----------------|
-| **Production** | Daily | `0 5 * * * /full/path/generate-backup.sh >> /var/log/redis-backup.log 2>&1` |
-| **QA** | Weekly (e.g. Friday) | `0 5 * * 5 /full/path/generate-backup.sh >> /var/log/redis-backup.log 2>&1` |
+| **Production** | Daily | `0 5 * * * /home/ubuntu/generate-backup.sh prd >> /home/ubuntu/redis-backup.log 2>&1` |
+| **QA** | Weekly (e.g. Friday) | `0 5 * * 5 /home/ubuntu/generate-backup.sh qa >> /home/ubuntu/redis-backup.log 2>&1` |
 
 Cron guide on Ubuntu: [Crontab.Script](https://github.com/agustinafassina/Crontab.Script).
 
@@ -42,20 +42,18 @@ Cron guide on Ubuntu: [Crontab.Script](https://github.com/agustinafassina/Cronta
 
 **Restore from S3:**
 ```bash
-./restore-backup.sh "s3://my-bucket/backups/prd/20250131120000/"
+./restore-backup.sh "s3://my-bucket/redis/prd/20250131120000/"
 ```
 
 **Restore from local folder:**
 ```bash
-./restore-backup.sh /backups/20250131120000 redis-backup-2025-01-31.rdb
+./restore-backup.sh ~/redis-restores/20250131120000 redis-backup-2025-01-31-20250131050001.rdb
 ```
 
 More details in each folder’s README.
 
 #### Español
 Scripts para instalar Redis en EC2, generar backups del RDB y subirlos a S3, y restaurarlos cuando haga falta. Incluye pasos para automatizar backups con cron.
-
-![Diagram](diagram.png)
 
 #### Requisitos previos 📄
 | Requisito | Detalle |
@@ -82,8 +80,8 @@ Scripts para instalar Redis en EC2, generar backups del RDB y subirlos a S3, y r
 Configurar AWS CLI y el script en la instancia (ver [2.GenerateBackup/README.md](2.GenerateBackup/README.md)), luego programar el script con **rutas absolutas**:
 | Entorno | Frecuencia | Ejemplo crontab |
 |---------|------------|------------------|
-| **Produccion** | Diario | `0 5 * * * /ruta/completa/generate-backup.sh >> /var/log/redis-backup.log 2>&1` |
-| **QA** | Semanal (ej. viernes) | `0 5 * * 5 /ruta/completa/generate-backup.sh >> /var/log/redis-backup.log 2>&1` |
+| **Produccion** | Diario | `0 5 * * * /home/ubuntu/generate-backup.sh prd >> /home/ubuntu/redis-backup.log 2>&1` |
+| **QA** | Semanal (ej. viernes) | `0 5 * * 5 /home/ubuntu/generate-backup.sh qa >> /home/ubuntu/redis-backup.log 2>&1` |
 
 Guia de cron en Ubuntu: [Crontab.Script](https://github.com/agustinafassina/Crontab.Script).
 
@@ -96,12 +94,12 @@ Guia de cron en Ubuntu: [Crontab.Script](https://github.com/agustinafassina/Cron
 
 **Restaurar desde S3:**
 ```bash
-./restore-backup.sh "s3://mi-bucket/backups/prd/20250131120000/"
+./restore-backup.sh "s3://mi-bucket/redis/prd/20250131120000/"
 ```
 
 **Restaurar desde carpeta local:**
 ```bash
-./restore-backup.sh /backups/20250131120000 redis-backup-2025-01-31.rdb
+./restore-backup.sh ~/redis-restores/20250131120000 redis-backup-2025-01-31-20250131050001.rdb
 ```
 
 Mas detalles en los README de cada carpeta.
